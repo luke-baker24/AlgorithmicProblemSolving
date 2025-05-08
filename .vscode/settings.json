@@ -58,7 +58,8 @@
     "sstream": "cpp",
     "unordered_map": "cpp",
     "unordered_set": "cpp",
-    "xhash": "cpp"
+    "xhash": "cpp",
+    "queue": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

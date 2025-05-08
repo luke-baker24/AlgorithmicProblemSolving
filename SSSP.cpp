@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
-#include <unordered_set>
+#include <set>
 #include <queue>
 
 class Vertex {
@@ -16,6 +16,11 @@ class Vertex {
     Vertex(int value) {
         this->value = value;
         this->pi = nullptr;
+    }
+
+    Vertex operator < (Vertex const& obj)
+    {
+        return this->d < obj.d ? 1 : 0;
     }
 };
 
@@ -149,7 +154,12 @@ bool bellmanFord(Graph g, Vertex* s) {
 void dijkstra(Graph g, Vertex* s) {
     initializeSingleSource(g, s);
 
-    std::unordered_set<Vertex> S;
+    std::set<Vertex> S;
+    std::priority_queue<Vertex> Q;
+
+    for (const auto& vert : g.vertices)
+        Q.push(vert);
+    
     
 }
 
