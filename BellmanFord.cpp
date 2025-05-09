@@ -13,13 +13,14 @@ class Vertex {
     long d;
     Vertex* pi;
 
-    Vertex(int value) {
-        this->value = value;
-        this->pi = nullptr;
+    Vertex(int _value) {
+        value = _value;
+
+        pi = nullptr;
+        d = 100000000;
     }
 
-    Vertex operator < (Vertex const& obj)
-    {
+    bool operator< (Vertex const& obj) const {
         return this->d < obj.d ? 1 : 0;
     }
 };
@@ -49,13 +50,6 @@ class Graph {
 // 		v.d = inf
 // 		v.pi = null
 // 	s.d = 0
-
-void initializeSingleSource(Graph graph, Vertex* start) {
-    for (int i = 0; i < graph.vertices.size(); i++) {
-        graph.vertices[i].d = 10000000;
-        graph.vertices[i].pi = nullptr;
-    }
-}
 
 
 //Relax the edge from u to v,
@@ -92,25 +86,25 @@ void relax(Vertex* u, Vertex* v) {
 // 			return FALSE
 // 	return TRUE
 
-bool bellmanFord(Graph g, Vertex* s) {
-    initializeSingleSource(g, s);
+// bool bellmanFord(Graph g, Vertex* s) {
+//     initializeSingleSource(g, s);
 
-    for (int i = 0; i < g.vertices.size() - 1; i++) {
-        for (int j = 0; j < g.vertices.size(); j++) {
-            for (const auto& entry : g.vertices[j].edges) {
-                relax(&g.vertices[j], entry.first);
-            }
-        }
-    }
+//     for (int i = 0; i < g.vertices.size() - 1; i++) {
+//         for (int j = 0; j < g.vertices.size(); j++) {
+//             for (const auto& entry : g.vertices[j].edges) {
+//                 relax(&g.vertices[j], entry.first);
+//             }
+//         }
+//     }
 
-    for (int j = 0; j < g.vertices.size(); j++) {
-        for (const auto& entry : g.vertices[j].edges) {
-            if (entry.first->d > g.vertices[j].d + entry.second) return false;
-        }
-    }
+//     for (int j = 0; j < g.vertices.size(); j++) {
+//         for (const auto& entry : g.vertices[j].edges) {
+//             if (entry.first->d > g.vertices[j].d + entry.second) return false;
+//         }
+//     }
     
-    return true;
-}
+//     return true;
+// }
 
 
 //Computes SSSP distances from s to all other vertices in a
@@ -152,15 +146,20 @@ bool bellmanFord(Graph g, Vertex* s) {
 // 			RELAX(u, v)
 
 void dijkstra(Graph g, Vertex* s) {
-    initializeSingleSource(g, s);
+    s->d = 0;
 
-    std::set<Vertex> S;
     std::priority_queue<Vertex> Q;
 
-    for (const auto& vert : g.vertices)
-        Q.push(vert);
+    for (int i = 0; i < g.vertices.size(); i++)
+        Q.push(g.vertices[i]);
     
-    
+    while (!Q.empty()) {
+        Vertex u = Q.top();
+        Q.pop();
+
+        for (const auto& edge : u.edges)
+            relax(&u, edge.first);
+    }
 }
 
 
@@ -179,7 +178,7 @@ void dijkstra(Graph g, Vertex* s) {
 // 		print v
 
 void printPath(Graph g, Vertex* s, Vertex* v) {
-    if (s == v)  {
+    if (s->value == v->value)  {
         std::cout << s->value << std::endl;
     }
     else if (v->pi == nullptr) {
@@ -187,6 +186,7 @@ void printPath(Graph g, Vertex* s, Vertex* v) {
     }
     else {
         printPath(g, s, v->pi);
+        std::cout << v->value << std::endl;
     }
 }
 
@@ -211,7 +211,7 @@ int main() {
             graph.vertices[u].edges.insert({&graph.vertices[v], w});
         }
 
-        //bellmanFord(graph, &graph.vertices[s]);
+        dijkstra(graph, &graph.vertices[s]);
 
         for (int i = 0; i < queries; i++) {
             int q;
