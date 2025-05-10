@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <queue>
 #include <set>
+#include <cmath>
 
 class Vertex {
     public:
@@ -44,36 +45,34 @@ struct VertexComparator {
 // contain cycles.
 void dijkstra(Graph* g, Vertex* s) {
     s->d = 0;
-
+    
     std::priority_queue<Vertex*, std::vector<Vertex*>, VertexComparator> Q;
-    std::set<int> S;
+    std::set<Vertex*> S;
 
-    for (int i = 0; i < g->vertices.size(); i++) {
-        Vertex v = g->vertices[i];
-
-        Q.push(&v);
-    }
+    Q.push(s);
     
     while (!Q.empty()) {
         Vertex* u = Q.top();
         Q.pop();
 
-        if (S.find(u->value) != S.end())
+        if (S.find(u) != S.end())
             continue;
 
         for (std::pair<Vertex*, int> edge : u->edges) {
             if (edge.first->d > u->d + edge.second) {
-                Vertex v = *edge.first;
+                edge.first->d = u->d + edge.second;
+                edge.first->pi = u;
 
-                v.d = u->d + edge.second;
-                v.pi = u;
-
-                Q.push(&v);
+                Q.push(edge.first);
             }
         }
         
-        S.insert(u->value);
+        S.insert(u);
     }
+}
+
+int max(int one, int two) {
+    return one > two ? one : two;
 }
 
 // Prints the shortest path from source vertex s to vertex v in
@@ -100,9 +99,9 @@ int main() {
 
         Graph graph;
 
-        for (int i = 0; i < nodes; i++)
+        for (int i = 0; i < nodes; i++) {
             graph.vertices.push_back(Vertex(i));
-
+        }
 
         for (int i = 0; i < edges; i++) {
             int u, v, w;
