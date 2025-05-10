@@ -59,7 +59,10 @@
     "unordered_map": "cpp",
     "unordered_set": "cpp",
     "xhash": "cpp",
-    "queue": "cpp"
+    "queue": "cpp",
+    "deque": "cpp",
+    "set": "cpp",
+    "xtree": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

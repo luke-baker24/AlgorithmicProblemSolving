@@ -2,10 +2,13 @@
 #include <vector>
 #include <unordered_map>
 #include <queue>
+#include <set>
 
 class Vertex {
     public:
     int value;
+
+    //Maps verted ID to edge weight
     std::unordered_map<Vertex*, int> edges;
 
     //For pathfinding
@@ -13,14 +16,10 @@ class Vertex {
     Vertex* pi;
 
     Vertex(int _value) {
-        value = _value;
+        this->value = _value;
 
-        pi = nullptr;
-        d = 1000000000;
-    }
-
-    bool operator< (Vertex const& obj) const {
-        return this->d < obj.d ? 1 : 0;
+        this->pi = nullptr;
+        this->d = 1000000000;
     }
 };
 
@@ -33,51 +32,62 @@ class Graph {
     }
 };
 
-// Relax the edge from u to v,
-// updating v's shortest path estimate and predecessor
-// if travelling through u gives a shorter path.
-void relax(Graph g, Vertex* u, Vertex* v) {
-    if (v->d > u->d + u->edges.at(v)) {
-        v->d = u->d + u->edges.at(v);
-        v->pi = u;
+struct VertexComparator {
+    bool operator()(const Vertex* a, const Vertex* b) const {
+        return a->d > b->d;
     }
-}
+};
 
 // Runs Dijkstra's algorithms to compute all SSSP distances
 // for directed graph G and source vertex s.
 // G must not contain any negative-weight edges, but it may
 // contain cycles.
-void dijkstra(Graph g, Vertex* s) {
+void dijkstra(Graph* g, Vertex* s) {
     s->d = 0;
 
-    std::priority_queue<Vertex> Q;
+    std::priority_queue<Vertex*, std::vector<Vertex*>, VertexComparator> Q;
+    std::set<int> S;
 
-    for (int i = 0; i < g.vertices.size(); i++)
-        Q.push(g.vertices[i]);
+    for (int i = 0; i < g->vertices.size(); i++) {
+        Vertex v = g->vertices[i];
+
+        Q.push(&v);
+    }
     
     while (!Q.empty()) {
-        Vertex u = Q.top();
+        Vertex* u = Q.top();
         Q.pop();
 
-        for (const auto& edge : u.edges)
-            relax(g, &u, edge.first);
+        if (S.find(u->value) != S.end())
+            continue;
+
+        for (std::pair<Vertex*, int> edge : u->edges) {
+            if (edge.first->d > u->d + edge.second) {
+                Vertex v = *edge.first;
+
+                v.d = u->d + edge.second;
+                v.pi = u;
+
+                Q.push(&v);
+            }
+        }
+        
+        S.insert(u->value);
     }
 }
 
 // Prints the shortest path from source vertex s to vertex v in
 // directed graph G.
 // Assumes a SSSP algorithm has already terminated.
-void printPath(Graph g, Vertex* s, Vertex* v) {
-    if (s->value == v->value)  {
-        std::cout << s->value << std::endl;
-    }
-    else if (v->pi == nullptr) {
+void printPath(Vertex* s, Vertex* v, int runningSum) {
+    if (s == v)
+        std::cout << runningSum << std::endl;
+
+    else if (v->pi == nullptr)
         std::cout << "Impossible" << std::endl;
-    }
-    else {
-        printPath(g, s, v->pi);
-        std::cout << v->value << std::endl;
-    }
+
+    else
+        printPath(s, v->pi, runningSum + v->pi->edges.at(v));
 }
 
 int main() {
@@ -90,9 +100,9 @@ int main() {
 
         Graph graph;
 
-        for (int i = 0; i < nodes; i++) {
+        for (int i = 0; i < nodes; i++)
             graph.vertices.push_back(Vertex(i));
-        }
+
 
         for (int i = 0; i < edges; i++) {
             int u, v, w;
@@ -101,13 +111,15 @@ int main() {
             graph.vertices[u].edges.insert({&graph.vertices[v], w});
         }
 
-        dijkstra(graph, &graph.vertices[s]);
+        Vertex* source = &graph.vertices[s];
+
+        dijkstra(&graph, source);
 
         for (int i = 0; i < queries; i++) {
             int q;
             std::cin >> q;
 
-            printPath(graph, &graph.vertices[s], &graph.vertices[q]);
+            printPath(source, &graph.vertices[q], 0);
         }
     }
 }
