@@ -2,23 +2,20 @@
 #include <vector>
 #include <unordered_map>
 #include <queue>
-#include <set>
 
 class Vertex {
     public:
     int value;
 
-    //Maps verted ID to edge weight
+    //Maps vertex ID to edge weight
     std::unordered_map<int, int> edges;
 
     //For pathfinding
     long d;
-    int pi;
 
     Vertex(int _value) {
         this->value = _value;
 
-        this->pi = -1;
         this->d = 1000000000;
     }
 };
@@ -32,41 +29,53 @@ class Graph {
     }
 };
 
-struct VertexComparator {
-    bool operator()(const Vertex* a, const Vertex* b) const {
-        return a->d > b->d;
-    }
-};
-
 // Runs Dijkstra's algorithms to compute all SSSP distances
 // for directed graph G and source vertex s.
 // G must not contain any negative-weight edges, but it may
 // contain cycles.
-void dijkstra(Graph* graph, Vertex* s) {
-    s->d = 0;
+void dijkstra(Graph* graph, int s) {
+    //The distance to source is 0
+    graph->vertices[s] = 0;
     
-    std::priority_queue<std::pair<long, Vertex*>, std::vector<std::pair<long, Vertex*>>, std::greater<std::pair<long, Vertex*>>> Q;
-    std::set<int> S;
+    //Storing (distance, vertex ID) pairs
+    std::priority_queue<std::pair<int, int>> Q;
 
-    Q.push({s->d, s});
+    //Storing (vertex ID, visited) pairs
+    std::vector<bool> S(graph->vertices.size());
+
+    //Push the source onto the queue
+    Q.push({0, s});
     
+    //While our queue isn't empty
     while (!Q.empty()) {
-        Vertex* u = Q.top().second;
+
+        //Pull the top value off the priority queue
+        std::pair<int, int> offQueue = Q.top();
         Q.pop();
 
-        if (S.find(u->value) != S.end())
+        //Get the vertex with the given ID from the queue entry
+        Vertex u = graph->vertices[offQueue.second];
+
+        //If we've already processed this vertex, skip
+        if (S[offQueue.second] == true)
             continue;
+                  
+        //Push this vertex's ID into the "processed" set
+        S[offQueue.second] = true;
 
-        for (std::pair<int, int> edge : u->edges) {
-            if (graph->vertices[edge.first].d > u->d + edge.second) {
-                graph->vertices[edge.first].d = u->d + edge.second;
-                graph->vertices[edge.first].pi = u->value;
+        //For every edge (vertex ID, weight) in the current vertex's edges
+        for (std::pair<int, int> edge : u.edges) {
 
-                Q.push({graph->vertices[edge.first].d, &graph->vertices[edge.first]});
+            //If the successor vertex's distance is greater than the current vertex plus edge weight
+            if (graph->vertices[edge.first].d > offQueue.first + edge.second) {
+
+                //Update this and set the new min
+                graph->vertices[edge.first].d = offQueue.first + edge.second;
+
+                //Push a new instance of the edge to the pqueue (negative for minheap)
+                Q.push({-(offQueue.first + edge.second), edge.first});
             }
         }
-        
-        S.insert(u->value);
     }
 }
 
@@ -104,7 +113,7 @@ int main() {
 
         Vertex* source = &graph.vertices[s];
 
-        dijkstra(&graph, source);
+        dijkstra(&graph, s);
 
         for (int i = 0; i < queries; i++) {
             int q;

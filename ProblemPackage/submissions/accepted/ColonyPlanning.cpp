@@ -90,11 +90,13 @@ int main() {
         //Increment loop since we just finished a loop
         loops++;
         
-        if (hull.size() > lastLoop) {
-            //If the hull size is more than the last loop, the colony is invalid
+        //If the hull size is more than the last loop, the colony is invalid
+        if (hull.size() >= lastLoop) {
             std::cout << "invalid" << std::endl;
             return 0;
         }
+
+        lastLoop = hull.size();
     }
 
     //If we've found the center of the colony and we don't have two buildings, the colony is invalid
