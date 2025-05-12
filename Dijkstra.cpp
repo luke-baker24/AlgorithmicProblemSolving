@@ -3,23 +3,22 @@
 #include <unordered_map>
 #include <queue>
 #include <set>
-#include <cmath>
 
 class Vertex {
     public:
     int value;
 
     //Maps verted ID to edge weight
-    std::unordered_map<Vertex*, int> edges;
+    std::unordered_map<int, int> edges;
 
     //For pathfinding
     long d;
-    Vertex* pi;
+    int pi;
 
     Vertex(int _value) {
         this->value = _value;
 
-        this->pi = nullptr;
+        this->pi = -1;
         this->d = 1000000000;
     }
 };
@@ -43,50 +42,43 @@ struct VertexComparator {
 // for directed graph G and source vertex s.
 // G must not contain any negative-weight edges, but it may
 // contain cycles.
-void dijkstra(Graph* g, Vertex* s) {
+void dijkstra(Graph* graph, Vertex* s) {
     s->d = 0;
     
-    std::priority_queue<Vertex*, std::vector<Vertex*>, VertexComparator> Q;
-    std::set<Vertex*> S;
+    std::priority_queue<std::pair<long, Vertex*>, std::vector<std::pair<long, Vertex*>>, std::greater<std::pair<long, Vertex*>>> Q;
+    std::set<int> S;
 
-    Q.push(s);
+    Q.push({s->d, s});
     
     while (!Q.empty()) {
-        Vertex* u = Q.top();
+        Vertex* u = Q.top().second;
         Q.pop();
 
-        if (S.find(u) != S.end())
+        if (S.find(u->value) != S.end())
             continue;
 
-        for (std::pair<Vertex*, int> edge : u->edges) {
-            if (edge.first->d > u->d + edge.second) {
-                edge.first->d = u->d + edge.second;
-                edge.first->pi = u;
+        for (std::pair<int, int> edge : u->edges) {
+            if (graph->vertices[edge.first].d > u->d + edge.second) {
+                graph->vertices[edge.first].d = u->d + edge.second;
+                graph->vertices[edge.first].pi = u->value;
 
-                Q.push(edge.first);
+                Q.push({graph->vertices[edge.first].d, &graph->vertices[edge.first]});
             }
         }
         
-        S.insert(u);
+        S.insert(u->value);
     }
-}
-
-int max(int one, int two) {
-    return one > two ? one : two;
 }
 
 // Prints the shortest path from source vertex s to vertex v in
 // directed graph G.
 // Assumes a SSSP algorithm has already terminated.
 void printPath(Vertex* s, Vertex* v, int runningSum) {
-    if (s == v)
-        std::cout << runningSum << std::endl;
-
-    else if (v->pi == nullptr)
+    if (v->d == 1000000000) 
         std::cout << "Impossible" << std::endl;
-
-    else
-        printPath(s, v->pi, runningSum + v->pi->edges.at(v));
+    
+    else 
+        std::cout << v->d << std::endl;
 }
 
 int main() {
@@ -107,7 +99,7 @@ int main() {
             int u, v, w;
             std::cin >> u >> v >> w;
 
-            graph.vertices[u].edges.insert({&graph.vertices[v], w});
+            graph.vertices[u].edges.insert({v, w});
         }
 
         Vertex* source = &graph.vertices[s];

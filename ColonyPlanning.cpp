@@ -75,6 +75,7 @@ int main() {
     
     //Count the number of loops in the colony plan
     int loops = 0;
+    int lastLoop = 100000;
     while (points.size() > 2) {
         //Run convex hull on the remaining points
         vi hull = jarvisMarch(points);
@@ -88,6 +89,12 @@ int main() {
 
         //Increment loop since we just finished a loop
         loops++;
+        
+        if (hull.size() > lastLoop) {
+            //If the hull size is more than the last loop, the colony is invalid
+            std::cout << "invalid" << std::endl;
+            return 0;
+        }
     }
 
     //If we've found the center of the colony and we don't have two buildings, the colony is invalid
