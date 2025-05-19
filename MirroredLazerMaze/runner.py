@@ -32,8 +32,8 @@ RUN_TIMEOUT = 5
 def check_executables():
     """Checks if necessary compilers and interpreters are available."""
     required = {
-        "java": ["javac", "java"],
-        "python": [sys.executable],
+        #"java": ["javac", "java"],
+        #"python": [sys.executable],
         "cpp": ["g++"]
     }
     missing = []

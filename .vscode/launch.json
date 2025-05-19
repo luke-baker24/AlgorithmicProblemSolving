@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "ColonyPlanning",
+      "request": "launch",
+      "mainClass": "ColonyPlanning",
+      "projectName": "AlgorithmicProblemSolving_f1d511dc"
+    },
+    {
+      "type": "java",
       "name": "AlmostUnionFind",
       "request": "launch",
       "mainClass": "AlmostUnionFind",
