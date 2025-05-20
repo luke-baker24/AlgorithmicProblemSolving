@@ -85,42 +85,6 @@ struct EdgeComparator {
     }
 };
 
-std::vector<std::pair<long, std::pair<long, long>>> mstKruskal(Graph* graph) {
-    DisjolongSet set;
-
-    long size = graph->vertices.size();
-
-    set.idToNode = std::vector<SetNode*>(size);
-
-    //Stores a list of (w, u, v)
-    std::priority_queue<std::pair<long, std::pair<long, long>>, std::vector<std::pair<long, std::pair<long, long>>>, EdgeComparator> edges;
-
-    for (long i = 0; i < size; i++) {
-        set.idToNode[i] = new SetNode(i);
-
-        for (long j = 0; j < graph->vertices[i]->edges.size(); j++) {
-            std::pair<long, long> currEdge = graph->vertices[i]->edges[j];
-
-            edges.push({currEdge.second, {i, currEdge.first}});
-        }
-    }
-
-    std::vector<std::pair<long, std::pair<long, long>>> MST;
-
-    while (!edges.empty()) {
-        std::pair<long, std::pair<long, long>> currEdge = edges.top();
-        edges.pop();
-
-        if (set.find(currEdge.second.first) != set.find(currEdge.second.second)) {
-            MST.push_back(currEdge);
-
-            set.unionSet(currEdge.second.first, currEdge.second.second);
-        }
-    }
-
-    return MST;
-}
-
 void modifiedMSTKruskal(Graph* graph, std::vector<bool> insecure) {
     DisjolongSet set;
 
@@ -133,46 +97,16 @@ void modifiedMSTKruskal(Graph* graph, std::vector<bool> insecure) {
 
     std::vector<std::pair<long, std::pair<long, long>>> MST;
 
-    std::vector<bool> included(size);
-
-    for (long i = 0; i < size; i++) {
+    for (long i = 0; i < size; i++)
         set.idToNode[i] = new SetNode(i);
-    }
-
-    for (long i = 0; i < size; i++) {
-        if (!insecure[i]) continue;
-
-        for (long j = 0; j < graph->vertices[i]->edges.size(); j++) {
-            std::pair<long, long> currEdge = graph->vertices[i]->edges[j];
-
-            edges.push({currEdge.second, {i, currEdge.first}});
-        }
-    }
-
-    //Handle the insecure edges
-    while (!edges.empty()) {
-        std::pair<long, std::pair<long, long>> currEdge = edges.top();
-        edges.pop();
-
-        if (included[currEdge.second.first] || included[currEdge.second.second]) {
-            continue;
-        }
-
-        if (set.find(currEdge.second.first) != set.find(currEdge.second.second)) {
-            MST.push_back(currEdge);
-
-            set.unionSet(currEdge.second.first, currEdge.second.second);
-
-            included[currEdge.second.first] = true;
-            included[currEdge.second.second] = true;
-        }
-    }
-        
+            
     for (long i = 0; i < size; i++) {
         if (insecure[i]) continue;
 
         for (long j = 0; j < graph->vertices[i]->edges.size(); j++) {
             std::pair<long, long> currEdge = graph->vertices[i]->edges[j];
+
+            if (insecure[currEdge.first]) continue;
 
             edges.push({currEdge.second, {i, currEdge.first}});
         }
@@ -183,13 +117,74 @@ void modifiedMSTKruskal(Graph* graph, std::vector<bool> insecure) {
         std::pair<long, std::pair<long, long>> currEdge = edges.top();
         edges.pop();
 
-        if (insecure[currEdge.second.first] || insecure[currEdge.second.second])
-            continue;
-
         if (set.find(currEdge.second.first) != set.find(currEdge.second.second)) {
             MST.push_back(currEdge);
 
             set.unionSet(currEdge.second.first, currEdge.second.second);
+        }
+    }
+
+    for (long i = 0; i < size; i++) {
+        //Only look at insecure nodes
+        if (!insecure[i]) continue;
+
+        std::pair<long, long> minEdge;
+        long minWeight = INF;
+
+        for (long j = 0; j < graph->vertices[i]->edges.size(); j++) {
+            std::pair<long, long> currEdge = graph->vertices[i]->edges[j];
+
+            if (insecure[currEdge.first]) continue;
+
+            if (currEdge.second < minWeight) {
+                minWeight = currEdge.second;
+                minEdge = currEdge;
+            }
+        }
+
+        if (minWeight != INF && set.find(i) != set.find(minEdge.first)) {
+            MST.push_back({minWeight, {i, minEdge.first}});
+
+            set.unionSet(i, minEdge.first);
+        }
+    }
+
+    for (long i = 0; i < size; i++) {
+        //Only look at insecure nodes
+        if (!insecure[i]) continue;
+
+        std::pair<long, long> minEdge;
+        long minWeight = INF;
+
+        bool allInsecure = true;
+        for (long j = 0; j < graph->vertices[i]->edges.size(); j++) {
+            std::pair<long, long> currEdge = graph->vertices[i]->edges[j];
+
+            //If both nodes are insecure
+            if (!insecure[currEdge.first]) allInsecure = false;
+
+            if (insecure[currEdge.first] && currEdge.second < minWeight) {
+                minWeight = currEdge.second;
+                minEdge = currEdge;
+            }
+        }
+
+        for (long j = 0; j < graph->vertices[minEdge.first]->edges.size(); j++) {
+            std::pair<long, long> currEdge = graph->vertices[minEdge.first]->edges[j];
+
+            //If both nodes are insecure
+            if (!insecure[currEdge.first]) allInsecure = false;
+
+            if (insecure[currEdge.first] && currEdge.second < minWeight) {
+                minWeight = currEdge.second;
+                minEdge = currEdge;
+            }
+        }
+
+        if (allInsecure && minWeight != INF && set.find(i) != set.find(minEdge.first)) {
+            MST.push_back({minWeight, {i, minEdge.first}});
+
+            set.unionSet(i, minEdge.first);
         }
     }
 
@@ -212,7 +207,7 @@ int main() {
     int numBuildings, numConnections, numInsecure;
     std::cin >> numBuildings >> numConnections >> numInsecure;
     
-    std::vector<bool> insecure(numBuildings);
+    std::vector<bool> insecure(numBuildings, false);
 
     for (int i = 0; i < numInsecure; i++) {
         int val;
@@ -224,7 +219,7 @@ int main() {
     Graph* graph = new Graph();
 
     for (long i = 0; i < numBuildings; i++) {
-        graph->vertices.push_back(new Vertex(i - 1));
+        graph->vertices.push_back(new Vertex(i));
     }
 
     for (long i = 0; i < numConnections; i++) {
