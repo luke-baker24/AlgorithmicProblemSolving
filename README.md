@@ -6,37 +6,44 @@ This repository holds my solutions to all problems I solved in CSSE 490 - Algori
 
 These problems are all really simple. Just getting started with I/O in Kattis.
 
-Straightforward
+### Straightforward
+
 > Metronome ✅
 > Hello World! ✅
 > Add Two Numbers ✅
 
-Interesting
+### Interesting
+
 > Espresso! ✅
 
 ## Problem Set 2 - Ad Hoc
 
 These are all problems with no real pattern in their solutions - ad hoc.
 
-Straightforward
+### Straightforward
+
 > Jumbled Compass ✅
 
-Interesting
+### Interesting
+
 > Nimionese ✅
 > 3D Printed Statues ✅
 
-Challenge
+### Challenge
+
 > Booking ✅
 
 ## Problem Set 3 - Library Data Structures
 
 These problems dealt primarily with stacks, queues, linked lists - common and standard data structures.
 
-Straightforward
+### Straightforward
+
 > The Grand Adventure
 > I Can Guess the Data Structure!
 
-Interesting
+### Interesting
+
 > Alphabet Animals
 > Grandpa Bernie
 
@@ -44,10 +51,12 @@ Interesting
 
 These problems started getting into more interesting problem solving strategies - binary search, recursion, etc.
 
-Straightforward
+### Straightforward
+
 > Natjecanje
 
-Interesting
+### Interesting
+
 > Pie
 > Noonerized Spumbers
 
@@ -55,13 +64,15 @@ Interesting
 
 These problems all deal with segment trees and range queries - faster methods to run repeated array sums and queries.
 
-Straightforward
+### Straightforward
+
 > Pivot
 
-Interesting
+### Interesting
+
 > Semi-prime H-numbers
 
-Challenge
+### Challenge
 > Worst Weather Ever (Not attempted)
 
 ## Problem Set 6 - Fenwick Trees
@@ -205,17 +216,40 @@ Simple intro problems to computational geometry.
 
 > SSSP, non-negative weights
 Dijkstra's algorithm
-> SSSP, negative weights
+> SSSP, negative weights (Not attempted)
 Bellman-Ford algorithm
 
-Interesting
+### Interesting
+
+> Flowery Trails (Not solved)
+
+### Challenge
+
+> Bog of Eternal Stench (Not attempted)
+> Profitable Trip (Not attempted)
 
 ## Problem Set 17 - All-Pairs Shortest-Path and Minimum Spanning Tree
 
-## My Problem - Colony Planning
+### Straightforward
 
-## Student Problem - Equivalent Words
+> Minimum Spanning Tree
 
-## Student Problem - Flour Monopoly
+### Interesting
 
-## Student Problem - Mirrored Lazer Maze
+> Transportation Planning
+
+### Challenge
+
+> Landline Telephone Network
+
+## Solve-Fest
+
+### My Problem
+
+> Colony Planning
+
+### Student Problems
+
+> Equivalent Words - cr. Tristan
+> Flour Monopoly - cr. Unknown
+> Mirrored Lazer Maze - cr. Agnay
