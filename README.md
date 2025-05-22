@@ -39,13 +39,13 @@ These problems dealt primarily with stacks, queues, linked lists - common and st
 
 ### Straightforward
 
-> The Grand Adventure
-> I Can Guess the Data Structure!
+> The Grand Adventure ✅
+> I Can Guess the Data Structure! ✅
 
 ### Interesting
 
-> Alphabet Animals
-> Grandpa Bernie
+> Alphabet Animals ✅
+> Grandpa Bernie ✅
 
 ## Problem Set 4 - Problem Solving Strategies
 
@@ -53,12 +53,12 @@ These problems started getting into more interesting problem solving strategies 
 
 ### Straightforward
 
-> Natjecanje
+> Natjecanje ✅
 
 ### Interesting
 
-> Pie
-> Noonerized Spumbers
+> Pie ✅
+> Noonerized Spumbers ✅
 
 ## Problem Set 5 - Range Queries and Segment Trees
 
@@ -66,14 +66,14 @@ These problems all deal with segment trees and range queries - faster methods to
 
 ### Straightforward
 
-> Pivot
+> Pivot ✅
 
 ### Interesting
 
-> Semi-prime H-numbers
+> Semi-prime H-numbers ✅
 
 ### Challenge
-> Worst Weather Ever (Not attempted)
+> Worst Weather Ever ⛔
 
 ## Problem Set 6 - Fenwick Trees
 
@@ -81,15 +81,15 @@ These problems all deal with the Fenwick Tree data structure - a log(N) way of q
 
 ### Straightforward
 
-> Fenwick Tree
+> Fenwick Tree ✅
 
 ### Interesting
 
-> Movie Collection
+> Movie Collection ✅
 
 ### Challenge
 
-> Juggler
+> Juggler ✅
 
 ## Problem Set 7 - Graphs Intro
 
@@ -97,11 +97,11 @@ These are all simple problems dealing with graphs.
 
 ### Straightforward
 
-> Weak Vertices
+> Weak Vertices ✅
 
 ### Interesting
 
-> Trip Planning
+> Trip Planning ✅
 
 ## Problem Set 8 - Breadth-First and Depth-First Search Variations
 
@@ -109,15 +109,15 @@ In the name - covers BFS and DFS and how to write them.
 
 ### Straightforward
 
-> Sheba's Amoebas
+> Sheba's Amoebas ✅
 
 ### Interesting
 
-> Pick up sticks
+> Pick up sticks ✅
 
 ### Challenge
 
-> 10 Kinds of People (Not attempted)
+> 10 Kinds of People ⛔
 
 ## Problem Set 9 - Strongly Connected Components
 
@@ -125,11 +125,11 @@ Covers strongly connected components in graphs.
 
 ### Straightforward
 
-> Cantina of Babel
+> Cantina of Babel ✅
 
 ### Challenge
 
-> Dominos (Not attempted)
+> Dominos ⛔
 
 ## Problem Set 10 - Dynamic Programming
 
@@ -137,15 +137,15 @@ Covers topics in dynamic programming.
 
 ### Straightforward
 
-> Knapsack
+> Knapsack ✅
 
 ### Interesting
 
-> Spiderman's Workout (Not solved)
+> Spiderman's Workout ⛔
 
 ### Challenge
 
-> Restaraunt Orders (Not attempted)
+> Restaraunt Orders ⛔
 
 ## Problem Set 11 - Disjoint-Set Union-Find
 
@@ -153,11 +153,11 @@ Covers the disjoint-set data structure.
 
 ### Straightforward
 
-> Disjoint-Set Union-Find
+> Disjoint-Set Union-Find ✅
 
 ### Interesting
 
-> Almost Union-Find
+> Almost Union-Find ✅
 
 ## Problem Set 12 - Computational Geometry Intro
 
@@ -165,91 +165,91 @@ Simple intro problems to computational geometry.
 
 ### Straightforward
 
-> Curse the Darkness
+> Curse the Darkness ✅
 
 ### Interesting
 
-> Simple Polygon
+> Simple Polygon ✅
 
 ### Challenge
 
-> Line Segment Intersection
+> Line Segment Intersection ✅
 
 ## Problem Set 13 - More Line Intersections
 
 ### Straightforward
 
-> Counting Triangles (Not attempted)
+> Counting Triangles ⛔
 
 ### Interesting
 
-> Point in Polygon (Not solved)
+> Point in Polygon ⛔
 
 ## Problem Set 14 - Polygons
 
 ### Straightforward
 
-> Polygon Area
+> Polygon Area ✅
 
 ### Interesting
 
-> Convex Hull
+> Convex Hull ✅
 
 ### Challenge
 
-> Dorm Room Divide
+> Dorm Room Divide ✅
 
 ## Problem Set 15 - String Matching
 
 ### Straightforward
 
-> String Matching
+> String Matching ✅
 
 ### Challenge
 
-> String Multimatching (Not attempted)
-> Software Bugs (Not attempted)
+> String Multimatching ⛔
+> Software Bugs ⛔
 
 ## Problem Set 16 - Single-Source Shortest-Path
 
 ### Straightforward
 
-> SSSP, non-negative weights
+> SSSP, non-negative weights ✅
 Dijkstra's algorithm
-> SSSP, negative weights (Not attempted)
+> SSSP, negative weights ⛔
 Bellman-Ford algorithm
 
 ### Interesting
 
-> Flowery Trails (Not solved)
+> Flowery Trails ⛔
 
 ### Challenge
 
-> Bog of Eternal Stench (Not attempted)
-> Profitable Trip (Not attempted)
+> Bog of Eternal Stench ⛔
+> Profitable Trip ⛔
 
 ## Problem Set 17 - All-Pairs Shortest-Path and Minimum Spanning Tree
 
 ### Straightforward
 
-> Minimum Spanning Tree
+> Minimum Spanning Tree ✅
 
 ### Interesting
 
-> Transportation Planning
+> Transportation Planning ✅
 
 ### Challenge
 
-> Landline Telephone Network
+> Landline Telephone Network ✅
 
 ## Solve-Fest
 
 ### My Problem
 
-> Colony Planning
+> Colony Planning ✅
 
 ### Student Problems
 
-> Equivalent Words - cr. Tristan
-> Flour Monopoly - cr. Unknown
-> Mirrored Lazer Maze - cr. Agnay
+> Equivalent Words - cr. Tristan ⛔
+> Flour Monopoly - cr. Unknown ⛔
+> Mirrored Lazer Maze - cr. Agnay ✅
