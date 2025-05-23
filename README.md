@@ -1,6 +1,19 @@
 # Algorithmic Problem Solving - Luke Baker
 
-This repository holds my solutions to all problems I solved in CSSE 490 - Algorithmic Problem Solving. IThis is a a reference for me to use in the future for certain algorithms that will come in handy in the future.
+## Introduction
+
+This repository holds my solutions to all problems I solved in CSSE 490 - Algorithmic Problem Solving. This is a a reference for me to use in the future for certain algorithms that will come in handy in the future.
+
+### Significant Data Structures
+
+Library: Stack, Queue, Priority Queue, Map, Set, List
+Unique: Segment trees, Fenwick trees, undirected graph, digraph, disjoint-set
+
+### Significant Algorithms
+
+General: Binary search, dynamic programming, string matching
+Graphs: Breadth-first search, Depth-first search, Tarjan's algorithm, Dijkstra's algorithm, Bellman-Ford algorithm, Kruskal's algorithm, Floyd-Warshall algorithm
+Computational geometry: Polygon area, Jarvis' march
 
 ## Problem Set 1 - Introduction
 
@@ -40,12 +53,12 @@ These problems dealt primarily with stacks, queues, linked lists - common and st
 ### Straightforward
 
 > The Grand Adventure ✅
-> I Can Guess the Data Structure! ✅
+> I Can Guess the Data Structure! (Stack, Queue, Priority Queue) ✅
 
 ### Interesting
 
-> Alphabet Animals ✅
-> Grandpa Bernie ✅
+> Alphabet Animals (Map, Set) ✅
+> Grandpa Bernie (Map) ✅
 
 ## Problem Set 4 - Problem Solving Strategies
 
@@ -53,12 +66,12 @@ These problems started getting into more interesting problem solving strategies 
 
 ### Straightforward
 
-> Natjecanje ✅
+> Natjecanje (Divide-and-conquer) ✅
 
 ### Interesting
 
-> Pie ✅
-> Noonerized Spumbers ✅
+> Pie (Binary search) ✅
+> Noonerized Spumbers (Brute-force) ✅
 
 ## Problem Set 5 - Range Queries and Segment Trees
 
@@ -66,13 +79,14 @@ These problems all deal with segment trees and range queries - faster methods to
 
 ### Straightforward
 
-> Pivot ✅
+> Pivot (Prefix tables) ✅
 
 ### Interesting
 
-> Semi-prime H-numbers ✅
+> Semi-prime H-numbers (Prefix tables) ✅
 
 ### Challenge
+
 > Worst Weather Ever ⛔
 
 ## Problem Set 6 - Fenwick Trees
@@ -81,15 +95,15 @@ These problems all deal with the Fenwick Tree data structure - a log(N) way of q
 
 ### Straightforward
 
-> Fenwick Tree ✅
+> Fenwick Tree (Fenwick trees) ✅
 
 ### Interesting
 
-> Movie Collection ✅
+> Movie Collection (Fenwick trees) ✅
 
 ### Challenge
 
-> Juggler ✅
+> Juggler (Fenwick trees) ✅
 
 ## Problem Set 7 - Graphs Intro
 
@@ -109,11 +123,11 @@ In the name - covers BFS and DFS and how to write them.
 
 ### Straightforward
 
-> Sheba's Amoebas ✅
+> Sheba's Amoebas (Breadth-first search/flood-fill) ✅
 
 ### Interesting
 
-> Pick up sticks ✅
+> Pick up sticks (Depth-first search) ✅
 
 ### Challenge
 
@@ -125,7 +139,7 @@ Covers strongly connected components in graphs.
 
 ### Straightforward
 
-> Cantina of Babel ✅
+> Cantina of Babel (Tarjan's algorithm) ✅
 
 ### Challenge
 
@@ -137,15 +151,15 @@ Covers topics in dynamic programming.
 
 ### Straightforward
 
-> Knapsack ✅
+> Knapsack (Dynamic programming) ✅
 
 ### Interesting
 
-> Spiderman's Workout ⛔
+> Spiderman's Workout (Dynamic programming) ⛔
 
 ### Challenge
 
-> Restaraunt Orders ⛔
+> Restaraunt Orders (Dynamic programming) ⛔
 
 ## Problem Set 11 - Disjoint-Set Union-Find
 
@@ -153,11 +167,11 @@ Covers the disjoint-set data structure.
 
 ### Straightforward
 
-> Disjoint-Set Union-Find ✅
+> Disjoint-Set Union-Find (Disjoint-set)  ✅
 
 ### Interesting
 
-> Almost Union-Find ✅
+> Almost Union-Find (Disjoint-set) ✅
 
 ## Problem Set 12 - Computational Geometry Intro
 
@@ -169,13 +183,15 @@ Simple intro problems to computational geometry.
 
 ### Interesting
 
-> Simple Polygon ✅
+> Line Segment Distance ✅
 
 ### Challenge
 
 > Line Segment Intersection ✅
 
 ## Problem Set 13 - More Line Intersections
+
+Covers more line intersections and all-pairs intersect.
 
 ### Straightforward
 
@@ -185,25 +201,29 @@ Simple intro problems to computational geometry.
 
 > Point in Polygon ⛔
 
+### Challenge
+
+> Simple Polygon ⛔
+
 ## Problem Set 14 - Polygons
 
 ### Straightforward
 
-> Polygon Area ✅
+> Polygon Area (Polygon area) ✅
 
 ### Interesting
 
-> Convex Hull ✅
+> Convex Hull (Jarvis' March) ✅
 
 ### Challenge
 
-> Dorm Room Divide ✅
+> Dorm Room Divide (Binary search, Polygon area) ✅
 
 ## Problem Set 15 - String Matching
 
 ### Straightforward
 
-> String Matching ✅
+> String Matching (Knuth-Morris-Pratt string matching) ✅
 
 ### Challenge
 
@@ -214,33 +234,31 @@ Simple intro problems to computational geometry.
 
 ### Straightforward
 
-> SSSP, non-negative weights ✅
-Dijkstra's algorithm
-> SSSP, negative weights ⛔
-Bellman-Ford algorithm
+> SSSP, non-negative weights (Dijkstra's algorithm) ✅
+> SSSP, negative weights (Bellman-Ford algorithm) ⛔
 
 ### Interesting
 
-> Flowery Trails ⛔
+> Flowery Trails (Dijkstra's algorithm) ⛔
 
 ### Challenge
 
-> Bog of Eternal Stench ⛔
-> Profitable Trip ⛔
+> Bog of Eternal Stench (Bellman-Ford algorithm) ⛔
+> Profitable Trip (Bellman-Ford algorithm) ⛔
 
 ## Problem Set 17 - All-Pairs Shortest-Path and Minimum Spanning Tree
 
 ### Straightforward
 
-> Minimum Spanning Tree ✅
+> Minimum Spanning Tree (Kruskal's algorithm, Disjoint-set) ✅
 
 ### Interesting
 
-> Transportation Planning ✅
+> Transportation Planning (Floyd-Warshall algorithm) ✅
 
 ### Challenge
 
-> Landline Telephone Network ✅
+> Landline Telephone Network (Kruskal's algorithm, Disjoint-set) ✅
 
 ## Solve-Fest
 
@@ -248,8 +266,8 @@ Bellman-Ford algorithm
 
 > Colony Planning ✅
 
-### Student Problems
+### Other Student Problems
 
-> Equivalent Words - cr. Tristan ⛔
+> Equivalent Words (Disjoint-set) - cr. Tristan ⛔
 > Flour Monopoly - cr. Unknown ⛔
-> Mirrored Lazer Maze - cr. Agnay ✅
+> Mirrored Lazer Maze (Breadth-first search) - cr. Agnay ✅
