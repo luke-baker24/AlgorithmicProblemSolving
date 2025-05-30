@@ -269,5 +269,5 @@ Covers more line intersections and all-pairs intersect.
 ### Other Student Problems
 
 > Equivalent Words (Disjoint-set) - cr. Tristan ⛔
-> Flour Monopoly - cr. Unknown ⛔
+> Flour Monopoly - cr. Alex ✅
 > Mirrored Lazer Maze (Breadth-first search) - cr. Agnay ✅

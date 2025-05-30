@@ -1,17 +1,17 @@
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 #include <queue>
 #include <set>
-#include <unordered_map>
 
-const long INF = 1000000000000000000;
+long INF = 1e18;
 
 class Vertex {
     public:
     long value;
 
     // Maps vertex ID to edge weight
-    std::unordered_map<long, long> edges;
+    std::vector< std::pair<long, long> > edges;
 
     // For pathfinding
     long d;
@@ -72,10 +72,10 @@ void dijkstra(Graph* graph, Vertex* s) {
     }
 }
 
-// Prlongs the shortest path from source vertex s to vertex v in
+// Prints the shortest path from source vertex s to vertex v in
 // directed graph G.
 // Assumes a SSSP algorithm has already terminated.
-void prlongPath(Vertex* s, Vertex* v) {
+void printPath(Vertex* s, Vertex* v) {
     if (v->d == INF) 
         std::cout << "X" << std::endl;
     
@@ -84,35 +84,31 @@ void prlongPath(Vertex* s, Vertex* v) {
 }
 
 int main() {
-    //N is the number of vertices
-    //M is the number of edges
-    //D is Pablo's magic cost
-    long n, m, d;
-    std::cin >> n >> m >> d;
+    long nodes, edges, d;
+    std::cin >> nodes >> edges >> d;
 
     Graph graph;
 
-    for (long i = 0; i < n; i++) {
+    for (long i = 0; i < nodes; i++) {
         graph.vertices.push_back(Vertex(i));
     }
 
-
-    for (long i = 0; i < m; i++) {
+    for (long i = 0; i < edges; i++) {
         long u, v, w;
         std::cin >> u >> v >> w;
 
         u--;
         v--;
-        
-        graph.vertices[u].edges.insert({v, d < w ? d : w});
-        graph.vertices[v].edges.insert({u, d < w ? d : w});
+
+        graph.vertices[u].edges.push_back(std::pair<long, long>(v, w > d ? d : w));
+        graph.vertices[v].edges.push_back(std::pair<long, long>(u, w > d ? d : w));
     }
 
     Vertex* source = &graph.vertices[0];
 
     dijkstra(&graph, source);
 
-    for (long i = 0; i < n; i++) {
-        prlongPath(source, &graph.vertices[i]);
+    for (int i = 0; i < nodes; i++) {
+        printPath(source, &graph.vertices[i]);
     }
 }

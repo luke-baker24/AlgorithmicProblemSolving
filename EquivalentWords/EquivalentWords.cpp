@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <algorithm>
 
 class SetNode {
     public:
@@ -59,80 +60,120 @@ void DisjointSet::unionSet(long x, long y) {
 
 //A translation is valid if for every word, the finds are equal
 
+std::unordered_map<std::string, int> map;
+DisjointSet set;
+
+void putInMap(std::string token) {
+    if (map.find(token) == map.end()) {
+        int idx = set.idToNode.size();
+
+        map[token] = idx;
+
+        set.idToNode.push_back(new SetNode(idx));
+    }
+}
+
 int main() {
+    //Handling I/O
+    std::vector<std::string> sourceLines;
+    std::vector<std::string> queryLines;
+
+    int sourceLineCt = 0;
+
     std::string line;
+    
+    int firstChunkLines;
+    std::cin >> firstChunkLines;
+    std::getline(std::cin, line);
 
-    std::unordered_map<std::string, int> map;
-    DisjointSet set;
 
-    bool readingIn = true;
+    for (int i = 0; i < firstChunkLines; i++) {
+        std::getline(std::cin, line);
 
-    std::vector<std::vector<int>> lines;
+        if (line[0] != '=') sourceLineCt++;
 
-    while (std::getline(std::cin, line)) {
-        if (readingIn) {
-            if (line == "") {
-                readingIn = false;
-                continue;
-            }
+        sourceLines.push_back(line);
+    }
 
-            if (line[0] == '=') {
-                std::stringstream stream(line);
+    std::getline(std::cin, line);
+    // std::getline(std::cin, line);
 
-                std::string token;
+    for (int i = 0; i < sourceLineCt; i++) {
+        std::getline(std::cin, line);
 
-                std::vector<std::string> words;
+        queryLines.push_back(line);
+    }
 
-                while (std::getline(stream, token, ' ')) {
-                    if (token == "=") continue; 
+    //Actually processing the values
+    int sourceIndex = 0;
+    
+    for (int queryIndex = 0; queryIndex < queryLines.size(); queryIndex++) {  
+        //Handle next equivalence lines
+        while (sourceLines[sourceIndex][0] == '=') {
+            std::stringstream equalStream(sourceLines[sourceIndex]);
 
-                    words.push_back(token);
-                }
-
-                if (words.size() == 1) continue;
-
-                for (int i = 1; i < words.size(); i++) {
-                    set.unionSet(map[words[i - 1]], map[words[i]]);
-                }
-            }
-            else {
-                std::stringstream stream(line);
-
-                std::string token;
-
-                lines.push_back(std::vector<int>());
-
-                while (std::getline(stream, token, ' ')) {
-                    //if the key is already in the arr
-                    if (map.find(token) == map.end()) {
-                        int idx = set.idToNode.size();
-
-                        map[token] = idx;
-
-                        set.idToNode.push_back(new SetNode(idx));
-
-                        lines[lines.size() - 1].push_back(idx);
-                    }
-                }
-            }
-        }
-        else {
-            std::stringstream stream(line);
+            std::vector<std::string> words;
 
             std::string token;
 
-            lines.push_back(std::vector<int>());
+            //Skip the equals sign
+            while (!equalStream.eof()) {
+                std::getline(equalStream, token, ' ');
 
-            while (std::getline(stream, token, ' ')) {
-                //if the key is already in the arr
-                if (map.find(token) == map.end()) {
-                    int idx = set.idToNode.size();
+                token.erase(std::remove(token.begin(), token.end(), '\n'), token.end());
+                token.erase(std::remove(token.begin(), token.end(), '\r'), token.end());
 
-                    map[token] = idx;
+                putInMap(token);
 
-                    lines[lines.size() - 1].push_back(idx);
-                }
+                words.push_back(token);
             }
+
+            for (int i = 1; i < words.size(); i++) {
+                set.unionSet(map[words[i - 1]], map[words[i]]);
+            }
+            
+            sourceIndex++;
         }
+
+        //Handle the source line
+        std::stringstream sourceStream(sourceLines[sourceIndex]);
+        std::stringstream queryStream(queryLines[queryIndex]);
+
+        bool couldBe = true;
+        
+        // std::cerr << "Source: " << sourceLines[sourceIndex] << std::endl;
+        // std::cerr << "Query: " << queryLines[queryIndex] << std::endl;
+
+        //Get rid of the equals sign
+        std::string checkToken;        
+        std::string token;
+        while (!(queryStream.eof() || sourceStream.eof())) {            
+            std::getline(queryStream, checkToken, ' ');
+            std::getline(sourceStream, token, ' ');
+            
+            checkToken.erase(std::remove(checkToken.begin(), checkToken.end(), '\n'), checkToken.end());
+            checkToken.erase(std::remove(checkToken.begin(), checkToken.end(), '\r'), checkToken.end());
+            
+            token.erase(std::remove(token.begin(), token.end(), '\n'), token.end());
+            token.erase(std::remove(token.begin(), token.end(), '\r'), token.end());
+
+            //if the key is not in the arr
+            putInMap(token);
+            putInMap(checkToken);
+
+            // std::cerr << token << " " << checkToken << std::endl;
+            // std::cerr << map[token] << " " << map[checkToken] << std::endl;
+            
+            if (set.find(map[token]) != set.find(map[checkToken]) || 
+                queryStream.eof() && !sourceStream.eof() || 
+                !queryStream.eof() && sourceStream.eof()) couldBe = false;
+        }
+
+        //Check if we're chillin
+        if (couldBe) std::cout << "Could be!" << std::endl;
+        else std::cout << "Could not be!" << std::endl;
+
+        //Making sure we somehow don't overflow
+        sourceIndex++;
     }
 }
